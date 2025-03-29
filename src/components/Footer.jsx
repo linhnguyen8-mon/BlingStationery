@@ -3,21 +3,28 @@ import { Facebook, Instagram, Twitter } from 'lucide-react'
 
 const Footer = () => {
     const footerLinks = {
-        Products: [
-            { name: 'Work Planners', href: '/planner/work' },
-            { name: 'Study Planners', href: '/planner/study' },
-            { name: 'Life Planners', href: '/planner/plan' },
+        'Sổ tay': [
+            { name: 'Sổ kế hoạch', href: '/notebooks/plan' },
+            { name: 'Sổ học tập', href: '/notebooks/study' },
+            { name: 'Sổ công việc', href: '/notebooks/work' }
         ],
-        Resources: [
-            { name: 'AI Prompts', href: '/ai-prompts' },
-            { name: 'Freebies', href: '/freebies' },
-            { name: 'How to Use', href: '/how-to-use' },
+        'Sản phẩm': [
+            { name: 'Notepad', href: '/notepads' },
+            { name: 'Sticker', href: '/stickers' },
+            { name: 'Sổ xóa được', href: '/erasable' }
         ],
-        Company: [
-            { name: 'About Us', href: '/about' },
-            { name: 'Contact', href: '/contact' },
-            { name: 'Blog', href: '/blog' },
+        'AI Prompt': [
+            { name: 'AI Prompt', href: '/ai-prompts' },
+            { name: 'Kiểm tra phong cách học tập', href: '/ai-prompts/learning-type-test' },
+            { name: 'Thử thách học tập', href: '/ai-prompts/learning-challenges' },
+            { name: 'Becoming', href: '/ai-prompts/becoming' },
+            { name: 'Phương pháp học tập', href: '/ai-prompts/study-techniques' }
         ],
+        'Công ty': [
+            { name: 'Về chúng tôi', href: '/about' },
+            { name: 'Liên hệ', href: '/contact' },
+            { name: 'Blog', href: '/blog' }
+        ]
     }
 
     return (
@@ -30,7 +37,7 @@ const Footer = () => {
                             BlingStationary
                         </Link>
                         <p className="mt-2 text-gray-400 text-sm">
-                            Beautiful planners for your work, study, and life organization needs.
+                            Planner đẹp giúp bạn tổ chức công việc, học tập và cuộc sống hiệu quả.
                         </p>
                     </div>
 

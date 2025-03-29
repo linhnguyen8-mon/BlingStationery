@@ -57,7 +57,7 @@ const categoryTitles = {
     plan: 'Sổ Kế Hoạch',
 }
 
-const Planner = () => {
+const Notepad = () => {
     const { category } = useParams()
     const categoryProducts = products[category] || []
 
@@ -115,4 +115,4 @@ const Planner = () => {
     )
 }
 
-export default Planner 
+export default Notepad 

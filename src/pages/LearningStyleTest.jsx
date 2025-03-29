@@ -9,7 +9,7 @@ const LearningStyleTestPage = () => {
                         Khám Phá Phong Cách Học Tập Của Bạn
                     </h1>
                     <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-500">
-                        Hãy làm bài kiểm tra nhanh này để hiểu cách bạn học tập hiệu quả nhất và nhận được những lời khuyên cá nhân hóa cho thói quen học tập của bạn.
+                        Hiểu cách bạn học tập hiệu quả nhất và nhận được những lời khuyên cá nhân hóa.
                     </p>
                 </div>
                 <LearningStyleTest />
