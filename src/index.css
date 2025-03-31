@@ -17,3 +17,24 @@
         @apply inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary;
     }
 }
+
+.ticket-wrapper {
+    position: relative;
+    background-color: white;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+/* Viền trái */
+.ticket-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 12px;
+    width: 20px;
+    height: 100%;
+    background-image: radial-gradient(circle at center, white 8px, transparent 11px);
+    background-size: 20px 30px;
+    background-repeat: repeat-y;
+    z-index: 10;
+}

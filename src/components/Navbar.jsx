@@ -4,27 +4,6 @@ import Logo from '../assets/image/Logo.svg'
 
 const navigation = [
     {
-        name: 'Sổ tay',
-        href: '/notebooks',
-        subcategories: [
-            { name: 'Sổ kế hoạch', href: '/notebooks/plan' },
-            { name: 'Sổ học tập', href: '/notebooks/study' },
-            { name: 'Sổ công việc', href: '/notebooks/work' }
-        ]
-    },
-    {
-        name: 'Notepad',
-        href: '/notepads'
-    },
-    {
-        name: 'Sticker',
-        href: '/stickers'
-    },
-    {
-        name: 'Sổ xóa được',
-        href: '/erasable-notebooks'
-    },
-    {
         name: 'Test phong cách học',
         href: '/learning-type-test'
     },
@@ -36,6 +15,7 @@ const navigation = [
 
 const Navbar = () => {
     const [activeCategory, setActiveCategory] = useState(null)
+    const [showHomeText, setShowHomeText] = useState(false)
     const navRef = useRef(null)
 
     useEffect(() => {
@@ -50,17 +30,30 @@ const Navbar = () => {
     }, [])
 
     return (
-        <nav className="bg-white shadow-sm relative" ref={navRef}>
+        <nav className="bg-white shadow-md relative" ref={navRef}>
             {/* Main Navigation (Top) */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-12 items-end">
-                    {/* Logo */}
-                    <Link to="/" className="flex items-center my-auto">
-                        <img src={Logo} alt="Bling Stationery Logo" className="h-8 w-auto" />
+            <div className="h-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between h-full items-center">
+                    {/* Logo with home text */}
+                    <Link
+                        to="/"
+                        className="flex items-center space-x-2 group"
+                        onMouseEnter={() => setShowHomeText(true)}
+                        onMouseLeave={() => setShowHomeText(false)}
+                    >
+                        <img src={Logo} alt="Bling Stationary Logo" className="h-10 w-auto transition-transform duration-200 group-hover:scale-105" />
+                        {showHomeText && (
+                            <span className="text-sm text-gray-600 group-hover:text-primary transition-colors duration-200 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                                </svg>
+                                Back to home
+                            </span>
+                        )}
                     </Link>
 
                     {/* Main Nav Items */}
-                    <div className="hidden sm:flex space-x-4">
+                    <div className="hidden sm:flex space-x-6">
                         {navigation.map((item) => (
                             <div
                                 key={item.name}
@@ -70,15 +63,15 @@ const Navbar = () => {
                             >
                                 <Link
                                     to={item.href}
-                                    className={`text-sm pb-3 font-semibold px-3 pt-2 text-gray-900 hover:text-primary transition-colors duration-200 ${activeCategory === item.name
-                                        ? 'text-primary border-b-4 border-primary pb-3'
+                                    className={`text-sm font-medium px-3 py-2 text-gray-700 hover:text-primary transition-all duration-200 ${activeCategory === item.name
+                                        ? 'text-primary border-b-2 border-primary'
                                         : ''
                                         }`}
                                 >
                                     {item.name}
                                 </Link>
                                 {item.subcategories && activeCategory === item.name && (
-                                    <div className="absolute w-full bg-white shadow-lg border-t border-gray-100 z-50">
+                                    <div className="absolute w-full bg-white shadow-lg border border-gray-100 rounded-md z-50 mt-1">
                                         <div className="py-2">
                                             {item.subcategories.map((sub) => (
                                                 <Link

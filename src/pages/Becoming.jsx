@@ -1,124 +1,174 @@
 import { useState } from 'react'
-import { Sparkles, Brain, Heart, Target } from 'lucide-react'
+import { Heart, Target, Copy, Check } from 'lucide-react'
+import becoming from '../assets/image/becoming.png'
+import becoming1 from '../assets/image/becoming(1).png'
 
 const Becoming = () => {
     const [manifestation, setManifestation] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
+    const [userDream, setUserDream] = useState('')
+    const [finalPrompt, setFinalPrompt] = useState('')
+    const [copied, setCopied] = useState(false)
+
+    const handleCopy = async () => {
+        try {
+            await navigator.clipboard.writeText(finalPrompt)
+            setCopied(true)
+            setTimeout(() => setCopied(false), 2000)
+        } catch (err) {
+            console.error('Failed to copy text: ', err)
+        }
+    }
 
     const generateManifestation = async () => {
+        if (!userDream.trim()) return
+
         setIsLoading(true)
-        // Here you would typically make an API call to generate the manifestation
-        // For now, we'll use a template-based response
         setTimeout(() => {
+            const personalizedDescription = `Hãy tưởng tượng một ngày hoàn hảo, nơi bạn đang sống cuộc sống như bạn mơ ước: "${userDream}". Mọi điều đều đúng như bạn mong muốn.`
+
             const response = {
                 dreamLife: {
                     title: "Một ngày trong cuộc sống mơ ước của bạn",
-                    description: "Hãy tưởng tượng một ngày hoàn hảo trong tương lai của bạn, nơi mọi thứ đều diễn ra như mong muốn. Bạn thức dậy trong một căn nhà đẹp, được bao quanh bởi những người thân yêu. Công việc của bạn đang phát triển tốt đẹp, và bạn có đủ thời gian để theo đuổi những sở thích cá nhân. Bạn cảm thấy hài lòng, hạnh phúc và biết ơn vì tất cả những gì mình đã đạt được."
+                    description: personalizedDescription
                 },
                 steps: [
                     {
                         title: "Tư duy (Thought)",
-                        description: "Mọi thứ bắt đầu từ việc biết rõ mình thực sự muốn gì. Hãy dành thời gian hình dung về cuộc sống mơ ước của bạn – không chỉ là những thứ bạn muốn có, mà còn cả cảm giác, trải nghiệm bạn muốn tận hưởng mỗi ngày.",
+                        description: "Mọi thứ bắt đầu từ việc biết rõ mình thực sự muốn gì...",
                         actions: [
                             "✍️ Viết nhật ký",
                             "🎨 Tạo bảng tầm nhìn (Vision Board)",
-                            "🧘‍♂️ Thực hành thiền định và tưởng tượng",
-                            "📚 Đọc sách về phát triển cá nhân"
+                            "🧘‍♂️ Thiền định và tưởng tượng",
+                            "📚 Đọc sách phát triển bản thân"
                         ]
                     },
                     {
                         title: "Niềm tin (Belief)",
-                        description: "Tin rằng mình làm được là bước đầu tiên để thực sự làm được. Đừng để những suy nghĩ tiêu cực kéo bạn xuống. Nếu có những hoài nghi, hãy thay thế chúng bằng niềm tin tích cực.",
+                        description: "Tin rằng mình làm được là bước đầu tiên...",
                         actions: [
-                            "💪 Thực hành khẳng định tích cực",
-                            "🔍 Tìm kiếm những câu chuyện thành công",
-                            "👥 Xây dựng môi trường tích cực",
-                            "👯 Tham gia các cộng đồng hỗ trợ"
+                            "💪 Khẳng định tích cực",
+                            "🔍 Tìm cảm hứng từ câu chuyện thành công",
+                            "👥 Môi trường tích cực",
+                            "👯 Cộng đồng hỗ trợ"
                         ]
                     },
                     {
                         title: "Hành động (Action)",
-                        description: "Ước mơ chỉ trở thành hiện thực khi bạn bắt tay vào làm. Đừng đợi đến lúc sẵn sàng, vì thật ra chẳng ai hoàn toàn sẵn sàng cả.",
+                        description: "Ước mơ chỉ thành hiện thực khi bạn hành động...",
                         actions: [
-                            "🗓️ Lập kế hoạch nhỏ, dễ làm",
-                            "🌿 Tạo thói quen tốt",
-                            "🎓 Không ngừng học hỏi",
-                            "💪 Kiên trì, đừng bỏ cuộc"
+                            "🗓️ Lập kế hoạch nhỏ",
+                            "🌿 Thói quen tốt",
+                            "🎓 Học tập liên tục",
+                            "💪 Kiên trì không bỏ cuộc"
                         ]
                     }
                 ]
             }
+
+            const fullPrompt = `Tôi muốn manifesting điều sau: "${userDream}". Hãy hướng dẫn tôi từng bước từ tư duy, niềm tin đến hành động để biến điều này thành hiện thực.`
+
             setManifestation(response)
+            setFinalPrompt(`${fullPrompt}\n\n${JSON.stringify(response, null, 2)}`)
             setIsLoading(false)
         }, 1500)
     }
 
     return (
         <div className="max-w-4xl mx-auto p-6">
-            <div className="text-center mb-12">
-                <div className="flex justify-center mb-4">
-                    <Sparkles className="h-12 w-12 text-primary" />
+            {/* Ticket style section */}
+            <div className="relative bg-white mb-8 overflow-hidden border border-gray-200 flex flex-col sm:flex-row rounded-xl shadow-lg">
+                <div className="sm:w-1/2 w-full">
+                    <img src={becoming} alt="Becoming" className="w-full h-auto object-cover" />
                 </div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-4">Becoming - Hiện Thực Hóa Ước Mơ</h1>
-                <p className="text-lg text-gray-600">
-                    Khám phá tiềm năng vô hạn của bạn và học cách biến ước mơ thành hiện thực
-                </p>
-            </div>
-
-            {/* AI Prompt Section */}
-            <div className="bg-white rounded-lg shadow p-6 mb-8">
-                <div className="flex items-center mb-4">
-                    <Brain className="h-6 w-6 text-primary mr-2" />
-                    <h2 className="text-xl font-semibold text-gray-900">AI Manifestation Prompt</h2>
-                </div>
-                <p className="text-gray-600 mb-6">
-                    Hãy để AI giúp bạn hình dung rõ ràng về cuộc sống mơ ước và các bước để đạt được nó.
-                </p>
-                <button
-                    onClick={generateManifestation}
-                    disabled={isLoading}
-                    className="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                    {isLoading ? 'Đang tạo...' : 'Tạo Manifestation Prompt'}
-                </button>
-            </div>
-
-            {/* Generated Manifestation */}
-            {manifestation && (
-                <div className="space-y-8">
-                    {/* Dream Life Section */}
-                    <div className="bg-white rounded-lg shadow p-6">
-                        <div className="flex items-center mb-4">
-                            <Heart className="h-6 w-6 text-primary mr-2" />
-                            <h2 className="text-xl font-semibold text-gray-900">{manifestation.dreamLife.title}</h2>
-                        </div>
-                        <p className="text-gray-600">{manifestation.dreamLife.description}</p>
+                <div className="sm:w-1/2 w-full flex flex-col justify-between p-6">
+                    <div>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-2">🎟️ Becoming - Hiện Thực Hóa Ước Mơ</h2>
+                        <p className="text-gray-600 text-sm mb-4">
+                            Khám phá tiềm năng vô hạn của bạn và học cách biến ước mơ thành hiện thực.
+                        </p>
+                        <input
+                            type="text"
+                            placeholder="Nhập mong muốn hoặc ước mơ của bạn..."
+                            value={userDream}
+                            onChange={(e) => setUserDream(e.target.value)}
+                            className="mb-4 px-4 py-2 border border-gray-300 rounded-md w-full focus:ring-primary focus:border-primary"
+                        />
                     </div>
+                    <button
+                        onClick={generateManifestation}
+                        disabled={isLoading}
+                        className="mt-auto w-full inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    >
+                        {isLoading ? 'Đang tạo...' : 'Bắt đầu manifesting'}
+                    </button>
+                </div>
+            </div>
 
-                    {/* Steps Section */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {manifestation.steps.map((step, index) => (
-                            <div key={index} className="bg-white rounded-lg shadow p-6">
-                                <div className="flex items-center mb-4">
-                                    <Target className="h-6 w-6 text-primary mr-2" />
-                                    <h3 className="text-lg font-semibold text-gray-900">{step.title}</h3>
+            {/* Prompt output */}
+            {finalPrompt && (
+                <div className="bg-white rounded-lg shadow  space-y-4 mb-4">
+                    <img src={becoming1} alt="Becoming" className="w-full h-80 object-cover object-[90%_50%]
+ " />
+                    <div className='p-6'>
+                        <div className="flex items-center justify-between">
+                            <h2 className="text-lg font-semibold text-gray-800">🎯 Prompt để gửi AI</h2>
+                            <button
+                                onClick={handleCopy}
+                                className="rounded-md flex items-center text-sm p-3 text-primary hover:bg-primary/10"
+                            >
+                                {copied ? (
+                                    <>
+                                        <Check className="h-4 w-4 mr-2 text-green-500" />
+                                        Đã sao chép
+                                    </>
+                                ) : (
+                                    <>
+                                        <Copy className="h-4 w-4 mr-2" />
+                                        Sao chép
+                                    </>
+                                )}
+                            </button>
+                        </div>
+                        {/* Manifestation steps */}
+                        {manifestation && (
+                            <div className="space-y-8">
+                                {/* Dream Life */}
+                                <div className="bg-white rounded-lg shadow p-6">
+                                    <div className="flex items-center mb-4">
+                                        <Heart className="h-6 w-6 text-primary mr-2" />
+                                        <h2 className="text-xl font-semibold text-gray-900">{manifestation.dreamLife.title}</h2>
+                                    </div>
+                                    <p className="text-gray-600">{manifestation.dreamLife.description}</p>
                                 </div>
-                                <p className="text-gray-600 mb-4">{step.description}</p>
-                                <ul className="space-y-2">
-                                    {step.actions.map((action, actionIndex) => (
-                                        <li key={actionIndex} className="flex items-start">
 
-                                            <span className="text-gray-600">{action}</span>
-                                        </li>
+                                {/* Steps */}
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    {manifestation.steps.map((step, index) => (
+                                        <div key={index} className="bg-white rounded-lg shadow p-6">
+                                            <div className="flex items-center mb-4">
+                                                <Target className="h-6 w-6 text-primary mr-2" />
+                                                <h3 className="text-lg font-semibold text-gray-900">{step.title}</h3>
+                                            </div>
+                                            <p className="text-gray-600 mb-4">{step.description}</p>
+                                            <ul className="space-y-2">
+                                                {step.actions.map((action, actionIndex) => (
+                                                    <li key={actionIndex} className="text-gray-600">{action}</li>
+                                                ))}
+                                            </ul>
+                                        </div>
                                     ))}
-                                </ul>
+                                </div>
+                                <div className="text-gray-700 whitespace-pre-wrap">{finalPrompt}</div>
                             </div>
-                        ))}
+                        )}
                     </div>
                 </div>
             )}
+
+
         </div>
     )
 }
 
-export default Becoming 
+export default Becoming

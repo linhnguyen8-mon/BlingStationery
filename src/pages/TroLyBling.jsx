@@ -1,5 +1,8 @@
 import { useState } from 'react'
-import { Copy, Calendar, Briefcase, BookOpen } from 'lucide-react'
+import Calendar from '../assets/icons/notePlan.png'
+import Briefcase from '../assets/icons/noteWork.png'
+import BookOpen from '../assets/icons/noteStudy.png'
+import { Copy, Check } from 'lucide-react'
 
 const categories = [
     {
@@ -9,75 +12,67 @@ const categories = [
         contexts: [
             {
                 id: 'weekly-plan',
-                name: 'Lập kế hoạch tuần',
-                template: `🏆 Bạn là một chuyên gia quản lý thời gian và lập kế hoạch.
-Tôi cần lập kế hoạch cho tuần tới với mục tiêu: {topic}
+                name: '📅 Lập kế hoạch tuần',
+                template: `🏆 Bạn là chuyên gia quản lý thời gian xuất sắc. Hãy giúp tôi lập kế hoạch tuần tới để đạt mục tiêu: {topic}
+Yêu cầu kế hoạch:
+🔹 3-5 mục tiêu quan trọng nhất tuần này.
+🔹 Thời gian phân bổ rõ ràng cho từng mục tiêu.
+🔹 Các nhiệm vụ cụ thể, theo thứ tự ưu tiên.
+🔹 Nguồn lực cần sử dụng.
+🔹 Rủi ro có thể gặp phải và giải pháp xử lý.
 
-Hãy tạo một kế hoạch chi tiết, giúp tôi tối ưu thời gian và đạt hiệu quả cao nhất. Cấu trúc kế hoạch bao gồm:
-
-🔹 Mục tiêu chính: Xác định 3-5 mục tiêu quan trọng nhất cần đạt được.
-🔹 Phân bổ thời gian: Chia thời gian hợp lý cho từng mục tiêu.
-🔹 Các nhiệm vụ cụ thể: Liệt kê các bước thực hiện chi tiết.
-🔹 Nguồn lực cần thiết: Xác định các nguồn lực cần huy động.
-🔹 Các rủi ro cần lưu ý: Dự đoán và đề xuất giải pháp phòng ngừa.
-
-📌 Xuất kết quả dưới dạng bảng trực quan, giúp tôi dễ dàng theo dõi & thực hiện.
-
-🚀 Tập trung vào chiến lược tối ưu, đơn giản hóa nhưng đảm bảo hiệu suất cao nhất!`
+📌 Trình bày dưới dạng bảng đơn giản, dễ theo dõi.
+🚀 Tập trung tối ưu hóa, đơn giản nhưng hiệu quả cao.`
             },
             {
                 id: 'monthly-plan',
-                name: 'Lập kế hoạch tháng',
-                template: `🏆 Bạn là một chuyên gia quản lý thời gian và lập kế hoạch dài hạn.
-Tôi cần lập kế hoạch cho tháng tới với mục tiêu: {topic}
+                name: '🗓️ Lập kế hoạch tháng',
+                template: `🏆 Bạn là chuyên gia hoạch định chiến lược dài hạn. Tôi cần kế hoạch trong {month} tháng để hoàn thành mục tiêu: {topic}
 
-Hãy tạo một kế hoạch tháng chi tiết, giúp tôi đạt được các mục tiêu dài hạn. Cấu trúc kế hoạch bao gồm:
-
-🔹 Mục tiêu tháng: Xác định 3-5 mục tiêu quan trọng nhất cần đạt được.
-🔹 Phân bổ theo tuần: Chia nhỏ mục tiêu thành các nhiệm vụ hàng tuần.
-🔹 Các dự án lớn: Liệt kê các dự án cần triển khai trong tháng.
-🔹 Nguồn lực cần thiết: Xác định các nguồn lực cần huy động.
-🔹 Các rủi ro cần lưu ý: Dự đoán và đề xuất giải pháp phòng ngừa.
-
+Yêu cầu kế hoạch tháng:
+🔹 3-5 mục tiêu chính trong tháng.
+🔹 Chia nhỏ mục tiêu theo từng tuần.
+🔹 Các dự án quan trọng cần thực hiện.
+🔹 Nguồn lực hỗ trợ cần thiết.
+🔹 Rủi ro và phương án phòng tránh.
 📌 Xuất kết quả dưới dạng bảng trực quan, giúp tôi dễ dàng theo dõi & thực hiện.
 
 🚀 Tập trung vào chiến lược tối ưu, đơn giản hóa nhưng đảm bảo hiệu suất cao nhất!`
             },
             {
                 id: 'habit-building',
-                name: 'Xây dựng thói quen',
-                template: `🏆 Bạn là một chuyên gia xây dựng thói quen và phát triển bản thân.
-Tôi muốn xây dựng thói quen: {topic}
+                name: '💪 Xây dựng thói quen',
+                template: `🏆 Bạn là chuyên gia phát triển thói quen hiệu quả. Tôi muốn hình thành thói quen: {topic}
 
-Hãy tạo một kế hoạch chi tiết, giúp tôi xây dựng và duy trì thói quen này. Cấu trúc kế hoạch bao gồm:
+Yêu cầu kế hoạch xây dựng thói quen:
+🔹 Xác định cụ thể mục tiêu thói quen.
+🔹 Lộ trình chi tiết trong 21 ngày.
+🔹 Thời điểm lý tưởng để thực hiện mỗi ngày.
+🔹 Công cụ, môi trường hỗ trợ.
+🔹 Khó khăn dự kiến và cách khắc phục.
 
-🔹 Mục tiêu thói quen: Xác định rõ thói quen muốn xây dựng.
-🔹 Lộ trình 21 ngày: Chia nhỏ thành các bước thực hiện.
-🔹 Thời gian thực hiện: Đề xuất thời điểm phù hợp trong ngày.
-🔹 Các yếu tố hỗ trợ: Liệt kê các công cụ và môi trường cần thiết.
-🔹 Các thách thức: Dự đoán và đề xuất giải pháp vượt qua.
-
-📌 Xuất kết quả dưới dạng bảng trực quan, giúp tôi dễ dàng theo dõi & thực hiện.
-
-🚀 Tập trung vào chiến lược tối ưu, đơn giản hóa nhưng đảm bảo hiệu suất cao nhất!`
+📌 Trình bày bảng dễ theo dõi.
+🚀 Đơn giản, tối ưu và duy trì bền vững.`
             },
             {
                 id: 'project-plan',
-                name: 'Lập kế hoạch dự án',
-                template: `🏆 Bạn là một chuyên gia quản lý dự án.
-Tôi cần lập kế hoạch cho dự án: {topic}
+                name: '📁 Lập kế hoạch dự án',
+                template: `🏆 Bạn là chuyên gia quản lý dự án chuyên nghiệp. Tôi cần kế hoạch rõ ràng để thực hiện dự án: {topic}
 
-Hãy tạo một kế hoạch dự án chi tiết, giúp tôi triển khai hiệu quả. Cấu trúc kế hoạch bao gồm:
 
-🔹 Phạm vi dự án: Xác định rõ các mục tiêu và giới hạn.
-🔹 Các mốc thời gian: Chia dự án thành các giai đoạn có thể đo lường.
-🔹 Nguồn lực cần thiết: Liệt kê các nguồn lực cần huy động.
-🔹 Các bên liên quan: Xác định và phân công trách nhiệm.
-🔹 Kế hoạch triển khai: Chi tiết các bước thực hiện.
+Yêu cầu kế hoạch dự án:
+🔑 Nội dung chính thảo luận:
+- 
+- 
+- 
 
-📌 Xuất kết quả dưới dạng bảng trực quan, giúp tôi dễ dàng theo dõi & thực hiện.
+✅ Quyết định chính:
+- 
 
-🚀 Tập trung vào chiến lược tối ưu, đơn giản hóa nhưng đảm bảo hiệu suất cao nhất!`
+📌 Việc cần làm tiếp theo:
+- Công việc | Người phụ trách | Deadline
+
+🚀 Trình bày bảng ngắn gọn, trực quan, dễ áp dụng.`
             }
         ]
     },
@@ -88,39 +83,29 @@ Hãy tạo một kế hoạch dự án chi tiết, giúp tôi triển khai hiệ
         contexts: [
             {
                 id: 'task-management',
-                name: 'Quản lý công việc',
-                template: `🏆 Bạn là một chuyên gia quản lý công việc.
-Tôi cần quản lý công việc cho: {topic}
+                name: '📝 Quản lý công việc',
+                template: `🏆 Bạn là chuyên gia quản lý và sắp xếp công việc. Tôi cần quản lý hiệu quả cho: {topic}
 
-Hãy tạo một kế hoạch quản lý công việc chi tiết, giúp tôi tối ưu hiệu suất. Cấu trúc kế hoạch bao gồm:
+Yêu cầu kế hoạch:
+🔹 Danh sách công việc theo mức ưu tiên.
+🔹 Thời hạn hoàn thành cụ thể.
+🔹 Người chịu trách nhiệm.
+🔹 Trạng thái theo dõi tiến độ.
 
-🔹 Danh sách công việc: Phân loại và sắp xếp theo ưu tiên.
-🔹 Độ ưu tiên: Xác định mức độ quan trọng và khẩn cấp.
-🔹 Thời hạn: Đề xuất thời gian hoàn thành hợp lý.
-🔹 Người phụ trách: Phân công trách nhiệm rõ ràng.
-🔹 Trạng thái: Theo dõi tiến độ thực hiện.
-
-📌 Xuất kết quả dưới dạng bảng trực quan, giúp tôi dễ dàng theo dõi & thực hiện.
-
-🚀 Tập trung vào chiến lược tối ưu, đơn giản hóa nhưng đảm bảo hiệu suất cao nhất!`
+📌 Trình bày dưới dạng bảng dễ sử dụng.
+🚀 Tối giản nhưng rõ ràng, hiệu quả.`
             },
             {
                 id: 'meeting-notes',
-                name: 'Ghi chú cuộc họp',
-                template: `🏆 Bạn là một chuyên gia ghi chú và tổng hợp thông tin.
-Tôi cần ghi chú cuộc họp về: {topic}
+                name: '📋 Ghi chú cuộc họp',
+                template: `🏆 Bạn là chuyên gia tổng hợp thông tin hiệu quả. Hãy giúp tôi ghi chú cuộc họp về: {topic}
 
-Hãy tạo một mẫu ghi chú cuộc họp chi tiết, giúp tôi nắm bắt thông tin hiệu quả. Cấu trúc ghi chú bao gồm:
-
-🔹 Thông tin cuộc họp: Thời gian, địa điểm, thành phần.
-🔹 Thành phần tham dự: Danh sách và vai trò của người tham gia.
-🔹 Nội dung thảo luận: Tóm tắt các vấn đề chính.
-🔹 Quyết định: Các quyết định quan trọng đã thống nhất.
-🔹 Các việc cần làm: Phân công và thời hạn thực hiện.
-
-📌 Xuất kết quả dưới dạng bảng trực quan, giúp tôi dễ dàng theo dõi & thực hiện.
-
-🚀 Tập trung vào chiến lược tối ưu, đơn giản hóa nhưng đảm bảo hiệu suất cao nhất!`
+    Yêu cầu ghi chú:
+    🔹 Nội dung chính sẽ thảo luận.
+    🔹 Công việc cần triển khai.
+    
+    📌 Trình bày dạng bảng rõ ràng, dễ theo dõi.
+    🚀 Tối giản thông tin, tập trung vào trọng tâm.`
             }
         ]
     },
@@ -131,134 +116,127 @@ Hãy tạo một mẫu ghi chú cuộc họp chi tiết, giúp tôi nắm bắt 
         contexts: [
             {
                 id: 'review-plan',
-                name: 'Lập kế hoạch ôn tập',
-                template: `🏆 Bạn là một chuyên gia học tập và ôn thi.
-Tôi cần lập kế hoạch ôn tập cho: {topic}
+                name: '📚 Lập kế hoạch ôn tập',
+                template: `🏆 Bạn là chuyên gia chiến lược học tập. Tôi cần kế hoạch ôn tập hiệu quả về: {topic}
 
-Hãy tạo một kế hoạch ôn tập chi tiết, giúp tôi học tập hiệu quả. Cấu trúc kế hoạch bao gồm:
+Yêu cầu:
+🔹 Chủ đề cần ôn tập, phân chia rõ ràng.
+🔹 Thời gian hợp lý từng phần.
+🔹 Phương pháp học tối ưu.
+🔹 Tài liệu chính tham khảo.
+🔹 Bài tập thực hành củng cố.
 
-🔹 Nội dung cần ôn tập: Chia nhỏ thành các chủ đề.
-🔹 Thời gian ôn tập: Phân bổ thời gian hợp lý.
-🔹 Phương pháp học: Đề xuất các phương pháp hiệu quả.
-🔹 Tài liệu tham khảo: Danh sách tài liệu cần thiết.
-🔹 Bài tập thực hành: Các bài tập để củng cố kiến thức.
-
-📌 Xuất kết quả dưới dạng bảng trực quan, giúp tôi dễ dàng theo dõi & thực hiện.
-
-🚀 Tập trung vào chiến lược tối ưu, đơn giản hóa nhưng đảm bảo hiệu suất cao nhất!`
+📌 Bảng dễ theo dõi và thực hiện.
+🚀 Hiệu quả, dễ nhớ, dễ áp dụng.`
             },
             {
                 id: 'lecture-notes',
-                name: 'Ghi chú bài giảng',
-                template: `🏆 Bạn là một chuyên gia ghi chú bài giảng.
-Tôi cần ghi chú bài giảng về: {topic}
+                name: '🖍️ Ghi chú bài giảng',
+                template: `📚 Bạn là chuyên gia ghi chú bài giảng hiệu quả. Giúp tôi ghi chú bài giảng về: {topic}
 
-Hãy tạo một mẫu ghi chú bài giảng chi tiết, giúp tôi nắm bắt kiến thức hiệu quả. Cấu trúc ghi chú bao gồm:
+Yêu cầu ghi chú:
+🔹 Chủ đề bài giảng & mục tiêu học tập.
+🔹 Các ý chính và nội dung quan trọng.
+🔹 Các khái niệm then chốt, định nghĩa dễ hiểu.
+🔹 Ví dụ cụ thể minh họa kiến thức.
+🔹 Các bài tập củng cố kiến thức.
 
-🔹 Tên bài học: Chủ đề và mục tiêu học tập.
-🔹 Tóm tắt nội dung: Các điểm chính cần nắm vững.
-🔹 Khái niệm quan trọng: Định nghĩa và giải thích.
-🔹 Ví dụ minh họa: Các ví dụ thực tế.
-🔹 Bài tập thực hành: Các bài tập để củng cố.
-
-📌 Xuất kết quả dưới dạng bảng trực quan, giúp tôi dễ dàng theo dõi & thực hiện.
-
-🚀 Tập trung vào chiến lược tối ưu, đơn giản hóa nhưng đảm bảo hiệu suất cao nhất!`
+📌 Trình bày dạng bảng ngắn gọn, rõ ràng.
+🚀 Tập trung hiệu quả, dễ hiểu và dễ ghi nhớ.`
             },
             {
                 id: 'question-answering',
-                name: 'Giải đáp câu hỏi',
-                template: `🏆 Bạn là một chuyên gia giải đáp thắc mắc và phân tích vấn đề.
-Tôi cần giải đáp câu hỏi về: {topic}
+                name: '❓ Giải đáp câu hỏi',
+                template: `❓ Bạn là chuyên gia phân tích và giải đáp câu hỏi học tập. Tôi cần giải đáp câu hỏi về: {topic}
 
-Hãy tạo một cấu trúc phân tích chi tiết, giúp tôi hiểu rõ vấn đề. Cấu trúc phân tích bao gồm:
-
-🔹 Phân tích câu hỏi: Xác định các từ khóa và yêu cầu chính.
-🔹 Kiến thức liên quan: Liệt kê các khái niệm cần nắm vững.
-🔹 Phương pháp giải quyết: Đề xuất các bước phân tích.
-🔹 Ví dụ minh họa: Các ví dụ thực tế để hiểu rõ hơn.
-🔹 Bài tập thực hành: Các câu hỏi tương tự để luyện tập.
-
-📌 Xuất kết quả dưới dạng bảng trực quan, giúp tôi dễ dàng theo dõi & thực hiện.
-
-🚀 Tập trung vào chiến lược tối ưu, đơn giản hóa nhưng đảm bảo hiệu suất cao nhất!`
+    Yêu cầu phân tích:
+    🔹 Xác định rõ yêu cầu & từ khóa câu hỏi.
+    🔹 Kiến thức nền tảng liên quan cần nhớ.
+    🔹 Quy trình từng bước giải đáp vấn đề.
+    🔹 Ví dụ thực tế minh họa rõ ràng.
+    🔹 Câu hỏi tương tự để tự thực hành.
+    
+    📌 Xuất bảng trực quan, dễ hiểu.
+    🚀 Ngắn gọn, đơn giản nhưng đầy đủ.`
             },
             {
                 id: 'mind-mapping',
-                name: 'Lập sơ đồ tư duy',
-                template: `🏆 Bạn là một chuyên gia về sơ đồ tư duy và tổ chức thông tin.
-Tôi cần lập sơ đồ tư duy cho: {topic}
+                name: '🧠 Lập sơ đồ tư duy',
+                template: `🧠 Bạn là chuyên gia tổ chức thông tin bằng sơ đồ tư duy. Hãy giúp tôi tạo sơ đồ tư duy cho chủ đề: {topic}
 
-Hãy tạo một cấu trúc sơ đồ tư duy chi tiết, giúp tôi tổ chức thông tin hiệu quả. Cấu trúc sơ đồ bao gồm:
-
-🔹 Chủ đề trung tâm: Xác định chủ đề chính cần triển khai.
-🔹 Các nhánh chính: Liệt kê các khía cạnh quan trọng.
-🔹 Chi tiết từng nhánh: Phân tích sâu từng khía cạnh.
-🔹 Mối liên hệ: Xác định các kết nối giữa các nhánh.
-🔹 Ví dụ minh họa: Các ví dụ thực tế để hiểu rõ hơn.
-
-📌 Xuất kết quả dưới dạng bảng trực quan, giúp tôi dễ dàng theo dõi & thực hiện.
-
-🚀 Tập trung vào chiến lược tối ưu, đơn giản hóa nhưng đảm bảo hiệu suất cao nhất!`
-            },
-            {
-                id: 'retrieval strategy',
-                name: 'Chiến lược truy xuất',
-                template: `🏆 Bạn là một chuyên gia về ghi nhớ và truy xuất thông tin.  
-Tôi cần kiểm tra lại kiến thức về: {topic}  
-
-Hãy giúp tôi tạo một bài kiểm tra để kiểm tra khả năng ghi nhớ của mình. Cấu trúc bài kiểm tra gồm:  
-
-🔹 Câu hỏi ngắn: Để kiểm tra khả năng nhớ chi tiết.  
-🔹 Câu hỏi tự luận: Để kiểm tra khả năng diễn đạt và ứng dụng.  
-🔹 Câu hỏi liên kết: So sánh hoặc kết nối thông tin mới với kiến thức cũ.  
-🔹 Phản hồi & đánh giá: Chỉ ra lỗ hổng kiến thức và đề xuất cách cải thiện.  
-
-📌 Xuất kết quả dưới dạng bảng để tôi có thể tự kiểm tra và học lại nếu cần! 🚀  
-`
+    Yêu cầu sơ đồ:
+    🔹 Chủ đề chính đặt tại trung tâm.
+    🔹 Các nhánh lớn đại diện các nội dung chính.
+    🔹 Chi tiết rõ ràng từng nhánh con.
+    🔹 Mối liên kết giữa các nội dung.
+    🔹 Ví dụ minh họa cụ thể.
+    
+    📌 Trình bày trực quan, dễ nhớ.
+    🚀 Đơn giản, dễ áp dụng, hiệu quả cao.`
             },
             {
                 id: 'active recall',
-                name: 'Gợi nhớ chủ động',
-                template: `🏆 Bạn là một gia sư chuyên giúp học viên ghi nhớ thông tin bằng phương pháp Active Recall.  
-Tôi muốn kiểm tra lại kiến thức về: {topic}  
+                name: '💡 Gợi nhớ chủ động',
+                template: `💡 Bạn là chuyên gia Active Recall. Giúp tôi kiểm tra kiến thức chủ động về: {topic}
 
-Hãy đặt cho tôi các câu hỏi để tôi tự trả lời, theo cấu trúc:  
-
-🔹 Câu hỏi đơn giản: Nhớ lại thông tin cơ bản.  
-🔹 Câu hỏi phân tích: Yêu cầu diễn giải hoặc giải thích sâu hơn.  
-🔹 Câu hỏi ứng dụng: Yêu cầu sử dụng kiến thức vào tình huống thực tế.  
-🔹 Câu hỏi thử thách: Kiểm tra khả năng tổng hợp và kết nối kiến thức.  
-
-📌 Sau mỗi câu hỏi, nếu tôi không trả lời được, hãy gợi ý một chút nhưng không đưa ra đáp án ngay! 🚀  
-`
+    Yêu cầu bài kiểm tra:
+    🔹 Câu hỏi cơ bản giúp nhớ kiến thức chính.
+    🔹 Câu hỏi phân tích để hiểu sâu.
+    🔹 Câu hỏi ứng dụng vào thực tế.
+    🔹 Câu hỏi tổng hợp thử thách khả năng tư duy.
+    
+    📌 Sau mỗi câu hỏi, gợi ý nhẹ nhàng nếu chưa trả lời được ngay.
+    🚀 Tối giản, dễ áp dụng, nâng cao hiệu quả học tập.`
             },
             {
-                id: 'pre-study',
-                name: 'Tiền nghiên cứu',
-                template: `🏆 Bạn là một chuyên gia về chiến lược học tập nhanh. Tôi đang chuẩn bị học về: {topic}  
+                id: 'study-preparation',
+                name: '📖 Chuẩn bị học bài',
+                template: `📖 Bạn là chuyên gia hướng dẫn học tập hiệu quả. Tôi chuẩn bị học về: {topic}
 
-Hãy giúp tôi xây dựng một kế hoạch tiền nghiên cứu để tăng tốc độ tiếp thu kiến thức, gồm:  
+Giúp tôi xây dựng một kế hoạch chuẩn bị trước khi học gồm:
+🔹 Tổng quan ngắn gọn về chủ đề.
+🔹 Các thuật ngữ quan trọng cần biết.
+🔹 Ứng dụng và liên hệ thực tế của chủ đề.
+🔹 Các câu hỏi tư duy gợi mở trước khi bắt đầu học.
 
-🔹 Tóm tắt nhanh: Những điểm chính cần nắm trước khi học sâu.  
-🔹 Từ khóa quan trọng: Những thuật ngữ cần hiểu.  
-🔹 Bối cảnh & ứng dụng: Cách chủ đề này liên quan đến các lĩnh vực khác.  
-🔹 Câu hỏi gợi mở: Những câu hỏi cần tự đặt ra để kích thích tư duy trước khi học.  
-
-📌 Hãy tạo bảng tổng hợp thông tin giúp tôi dễ dàng tiếp cận kiến thức mới nhanh hơn! 🚀  
-`
+📌 Trình bày bảng tóm tắt rõ ràng, giúp tôi dễ dàng nắm bắt trước kiến thức.
+🚀 Hiệu quả, dễ hiểu và tối ưu quá trình học.`
             },
             {
                 id: 'language',
-                name: 'Học ngoại ngữ',
-                template: `🏆 Bạn là chuyên gia ngôn ngữ, giúp tôi thành thạo từ/cụm từ: {word/phrase} một cách sâu sắc và dễ nhớ nhất. 
+                name: '📘 Học từ mới',
+                template: `🏆 Bạn là chuyên gia ngôn ngữ xuất sắc. Giúp tôi học nhanh và hiệu quả từ/cụm từ: {word/phrase}
+Yêu cầu chi tiết:
+🔹 Định nghĩa dễ hiểu và ngắn gọn.
+🔹 Các ngữ cảnh thường gặp trong giao tiếp.
+🔹 Ví dụ cụ thể giúp ghi nhớ tốt hơn.
+🔹 Các từ đồng nghĩa, trái nghĩa và cụm từ liên quan.
+🔹 Phương pháp ghi nhớ hiệu quả và nhanh chóng.
+🔹 Bài tập thực hành ngắn để củng cố kiến thức.
 
-🔹 Giải nghĩa đơn giản:Giải thích dễ hiểu, không dùng từ điển khô khan.
-🔹 Ngữ cảnh & sắc thái
-🔹 Ví dụ thực tế:3 câu ví dụ ở các bối cảnh khác nhau
-🔹 Cách dùng mở rộng: Các cụm từ đi kèm (collocations), từ đồng nghĩa/trái nghĩa.  
-🔹 Mẹo nhớ nhanh:Gợi hình hoặc câu chuyện giúp liên tưởng dễ dàng.
-🔹 Bài tập ngắn:Trắc nghiệm/điền từ/chỉnh lỗi sai/đặt câu mới.
+📌 Trình bày bảng rõ ràng, trực quan, dễ nhớ.
+🚀 Tối giản thông tin nhưng hiệu quả tối đa.`
+            },
+            {
+                id: 'conversation-roleplay',
+                name: '💬 Luyện đối thoại',
+                template: `🗣️ Bạn là đối tác giao tiếp trong cuộc hội thoại roleplay về chủ đề: {topic}  
+nói chuyên tất cả bằng ngôn ngữ anh
+
+Yêu cầu thực hành:  
+🔹 Bắt đầu hội thoại, hãy đề xuất:  
+  • Một outline các nội dung chính xoay quanh topic.  
+  • Danh sách từ vựng, collocation và mẫu câu phổ biến phù hợp với topic + bối cảnh.  
+🔹 Bước 2: Tiến hành hội thoại thực tế, chia thành từng lượt qua lại ngắn gọn, giống như đang nói chuyện với giáo viên bản xứ.  
+  • Bạn đưa ra từng câu thoại và gợi ý để mình trả lời.  
+  • Nếu mình trả lời sai hoặc chưa tự nhiên, hãy sửa lỗi (ngữ pháp, từ vựng, phát âm) và đề xuất câu trả lời tốt hơn.  
+🔹 Bước 3: Kết thúc cuộc hội thoại, hãy:  
+  • Tổng kết các lỗi mình thường gặp.  
+  • Gợi ý các điểm cần cải thiện.  
+  • Gợi ý một số bài tập hoặc cách luyện tập thêm với chủ đề này.
+
+📌 Hội thoại thực tế, ngắn gọn, dễ áp dụng ngay.  
+🚀 Hướng dẫn rõ ràng, tối ưu kỹ năng giao tiếp thực tế.
 `
             }
         ]
@@ -269,13 +247,15 @@ const TroLyBling = () => {
     const [selectedCategory, setSelectedCategory] = useState(null)
     const [selectedContext, setSelectedContext] = useState(null)
     const [customInput, setCustomInput] = useState('')
-    const [savedPrompts, setSavedPrompts] = useState([])
+    const [monthInput, setMonthInput] = useState('')
     const [showToast, setShowToast] = useState(false)
+    const [copied, setCopied] = useState(false)
 
     const handleCategorySelect = (category) => {
         setSelectedCategory(category)
         setSelectedContext(null)
         setCustomInput('')
+        setMonthInput('')
     }
 
     const handleContextSelect = (context) => {
@@ -288,20 +268,46 @@ const TroLyBling = () => {
     }
 
     const generatePrompt = () => {
-        if (!selectedContext) return ''
-        return selectedContext.template.replace('{topic}', `<span class="bg-primary px-2 py-1 rounded font-medium text-white">${customInput}</span>`)
-    }
+        if (!selectedContext) return '';
 
-    const handleCopy = () => {
-        const plainText = generatePrompt().replace(/<[^>]*>/g, '')
-        navigator.clipboard.writeText(plainText)
-        setShowToast(true)
-        setTimeout(() => setShowToast(false), 3000)
+        let prompt = selectedContext.template;
+
+        if (prompt.includes('{topic}')) {
+            prompt = prompt.replace(
+                '{topic}',
+                `<span class="bg-primary px-2 py-1 rounded font-medium text-white">${customInput}</span>`
+            );
+        }
+
+        if (prompt.includes('{word/phrase}')) {
+            prompt = prompt.replace(
+                '{word/phrase}',
+                `<span class="bg-primary px-2 py-1 rounded font-medium text-white">${customInput}</span>`
+            );
+        }
+
+        if (prompt.includes('{month}')) {
+            prompt = prompt.replace(
+                '{month}',
+                `<span class="bg-secondary px-2 py-1 rounded font-medium text-white">${monthInput}</span>`
+            );
+        }
+
+        return prompt;
+    };
+
+    const handleCopy = async (text) => {
+        try {
+            await navigator.clipboard.writeText(text)
+            setCopied(true)
+            setTimeout(() => setCopied(false), 2000)
+        } catch (err) {
+            console.error('Failed to copy text: ', err)
+        }
     }
 
     return (
         <div className="max-w-4xl mx-auto p-6">
-            <h1 className="text-3xl font-bold text-gray-900 mb-8">Tạo Prompt AI</h1>
 
             {/* Categories */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
@@ -309,13 +315,20 @@ const TroLyBling = () => {
                     <button
                         key={category.id}
                         onClick={() => handleCategorySelect(category)}
-                        className={`flex items-center justify-center p-4 rounded-lg border-2 transition-colors ${selectedCategory?.id === category.id
-                            ? 'border-primary bg-primary/5'
-                            : 'border-gray-200 hover:border-primary/50'
-                            }`}
+                        className={`relative flex flex-col gap-4 items-center justify-center transition-colors `}
                     >
-                        <category.icon className="h-6 w-6 mr-2 text-primary" />
-                        <span className="font-medium">{category.name}</span>
+                        <img
+                            src={category.icon}
+                            alt={category.name}
+                            className={`h-40 w-40 mr-2 rounded-full transition-all duration-300 ${selectedCategory?.id === category.id
+                                ? 'ring-2 ring-primary'
+                                : ''
+                                }`}
+                        />
+                        <span className={`absolute bottom-3 text-sm text-primary font-medium ${selectedCategory?.id === category.id
+                            ? 'font-bold'
+                            : 'text-primary/50'
+                            }`}>{category.name}</span>
                     </button>
                 ))}
             </div>
@@ -344,9 +357,25 @@ const TroLyBling = () => {
             {/* Prompt Generator */}
             {selectedContext && (
                 <div className="space-y-6">
+                    {/* Input tháng (chỉ xuất hiện khi cần) */}
+                    {selectedContext?.template.includes('{month}') && (
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2 mt-4">
+                                Số tháng
+                            </label>
+                            <input
+                                type="text"
+                                value={monthInput}
+                                onChange={(e) => setMonthInput(e.target.value)}
+                                placeholder="Ví dụ: 1/3/6/12 tháng"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-secondary focus:border-secondary"
+                            />
+                        </div>
+                    )}
+                    {/* Input chung */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Nhập thông tin
+                            Thông tin
                         </label>
                         <input
                             type="text"
@@ -357,15 +386,27 @@ const TroLyBling = () => {
                         />
                     </div>
 
+
+
+
                     <div className="bg-white border border-gray-200 p-4 rounded-lg">
                         <div className="flex justify-between items-center mb-2">
                             <h3 className="text-lg font-medium text-gray-900">Xem trước Prompt</h3>
                             <button
-                                onClick={handleCopy}
+                                onClick={() => handleCopy(generatePrompt())}
                                 className="flex items-center px-4 py-2 bg-white text-primary rounded-md hover:bg-gray-50 transition-colors"
                             >
-                                <Copy className="h-4 w-4 mr-2" />
-                                Sao chép
+                                {copied ? (
+                                    <>
+                                        <Check className="h-4 w-4 mr-2 text-green-500" />
+                                        Đã sao chép
+                                    </>
+                                ) : (
+                                    <>
+                                        <Copy className="h-4 w-4 mr-2" />
+                                        Sao chép
+                                    </>
+                                )}
                             </button>
                         </div>
                         <div
